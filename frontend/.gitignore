@@ -1,5 +1,5 @@
 node_modules
-.dist
+dist
 .vite
 .env.local
 .env.*.local
@@ -7,4 +7,3 @@ npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 pnpm-debug.log*
-package-lock.json
