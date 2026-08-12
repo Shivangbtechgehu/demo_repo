@@ -2,6 +2,7 @@ import { Link, NavLink } from 'react-router-dom'
 import { Menu, ShieldCheck } from 'lucide-react'
 import { NAV_LINKS, APP_NAME } from '../../constants'
 import Button from '../ui/Button'
+import NotificationBell from '../ui/NotificationBell'
 import { useAuth } from '../../hooks/useAuth'
 
 export default function Navbar() {
@@ -32,6 +33,9 @@ export default function Navbar() {
         </nav>
 
         <div className="flex items-center gap-2">
+          {/* Show bell only when logged in */}
+          {auth?.isAuthenticated && <NotificationBell />}
+
           {auth?.isAuthenticated ? (
             <Button variant="secondary" onClick={auth.logout}>
               Logout
@@ -41,7 +45,12 @@ export default function Navbar() {
               Login
             </Button>
           )}
-          <button className="rounded-xl border border-white/10 p-2 text-slate-200 md:hidden" type="button" aria-label="Open menu">
+
+          <button
+            className="rounded-xl border border-white/10 p-2 text-slate-200 md:hidden"
+            type="button"
+            aria-label="Open menu"
+          >
             <Menu className="h-5 w-5" />
           </button>
         </div>

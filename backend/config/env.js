@@ -1,9 +1,10 @@
+const path = require('path');
 const dotenv = require('dotenv');
 
-dotenv.config();
+dotenv.config({ path: path.resolve(__dirname, '..', '.env') });
 
 function getRequiredEnv(name, fallback = undefined) {
-  const value = process.env[name] ?? fallback;
+  const value = (process.env[name] ?? fallback)?.trim();
   if (value === undefined || value === '') {
     throw new Error(`Missing required environment variable: ${name}`);
   }
@@ -19,6 +20,13 @@ const env = {
   openAiApiKey: process.env.OPENAI_API_KEY || '',
   geminiApiKey: process.env.GEMINI_API_KEY || '',
   aiProvider: process.env.AI_PROVIDER || 'mock',
+  // SMTP
+  smtpHost: process.env.SMTP_HOST || 'smtp.gmail.com',
+  smtpPort: Number(process.env.SMTP_PORT || 587),
+  smtpUser: process.env.SMTP_USER || '',
+  smtpPass: process.env.SMTP_PASS || '',
+  smtpFrom: process.env.SMTP_FROM || 'App <no-reply@app.com>',
+  otpExpiresInMinutes: Number(process.env.OTP_EXPIRES_IN_MINUTES || 10),
 };
 
 module.exports = { env, getRequiredEnv };
